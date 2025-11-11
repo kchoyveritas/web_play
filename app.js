@@ -475,11 +475,10 @@
         const wireHeightPx = state.wireHeightIn * INCH_TO_PX * baseScaleH;
         const wireWidthPx = state.wireWidthIn * INCH_TO_PX * baseScaleW;
 
-        ctx.fillStyle = theme.text;
-        ctx.font = "14px Helvetica, Arial, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "top";
-        ctx.fillText("The Rotation of Wire in the Slot", cssWidth / 2, offsetY + 8);
+    ctx.fillStyle = theme.text;
+    ctx.font = "14px Helvetica, Arial, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
 
         const x0 = offsetX + (drawWidth - slotWidthPx) / 2;
         const y0 = offsetY + (drawHeight - slotHeightPx) / 2;

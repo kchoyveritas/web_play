@@ -251,3 +251,9 @@ body.theme-dark .canvas-wrapper {
         margin-top: 0;
     }
 }
+
+/* Hide UI pieces per user request: angle readout and external tool link */
+#angle-readout,
+#tool-link {
+    display: none !important;
+}
