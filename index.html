@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Calculator ver 10.10</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+</head>
+<body class="theme-light">
+    <header class="app-header">
+        <h1>Play Calculator <span class="app-version">v10.10</span></h1>
+        <div class="header-actions">
+            <button id="toggle-theme" type="button">Dark Mode</button>
+            <button id="toggle-equation" type="button">Show Equation</button>
+            <button id="export-csv" type="button">Export CSV</button>
+        </div>
+    </header>
+
+    <main class="app-layout">
+        <section class="controls" aria-label="Adjustment controls">
+            <section class="control-group" aria-labelledby="slot-heading">
+                <div class="group-header">
+                    <h2 id="slot-heading">Slot</h2>
+                    <label class="preset-label">
+                        Preset
+                        <select id="slot-preset"></select>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <label for="slot-slider">Size (in)</label>
+                    <input id="slot-slider" type="range" min="0.018" max="0.022" step="0.0001">
+                </div>
+                <div class="control-row">
+                    <label for="slot-input">S:</label>
+                    <input id="slot-input" type="number" step="0.0001" min="0.018" max="0.022">
+                </div>
+            </section>
+
+            <section class="control-group" aria-labelledby="wire-heading">
+                <div class="group-header">
+                    <h2 id="wire-heading">Wire</h2>
+                    <label class="preset-label">
+                        Preset
+                        <select id="wire-preset"></select>
+                    </label>
+                </div>
+                <div class="control-row">
+                    <label for="wire-h-slider">H (in)</label>
+                    <input id="wire-h-slider" type="range" min="0.010" max="0.028" step="0.0001">
+                </div>
+                <div class="control-row">
+                    <label for="wire-h-input">H:</label>
+                    <input id="wire-h-input" type="number" step="0.0001" min="0.010" max="0.028">
+                </div>
+                <div class="control-row">
+                    <label for="wire-w-slider">W (in)</label>
+                    <input id="wire-w-slider" type="range" min="0.010" max="0.028" step="0.0001">
+                </div>
+                <div class="control-row">
+                    <label for="wire-w-input">W:</label>
+                    <input id="wire-w-input" type="number" step="0.0001" min="0.010" max="0.028">
+                </div>
+            </section>
+
+            <section class="details" aria-live="polite">
+                <p id="angle-readout">Angle: --°</p>
+                <p id="message-line" class="message"></p>
+            </section>
+        </section>
+
+        <section class="visual" aria-label="Slot visualization">
+            <div class="canvas-wrapper">
+                <canvas id="slot-canvas"></canvas>
+            </div>
+            <footer class="visual-footer">
+                <a id="tool-link" href="https://sites.google.com/view/kchoy" target="_blank" rel="noopener">BTK multi-tool</a>
+                <span class="equation-text" id="equation-text"></span>
+                <span class="equation-values" id="equation-values"></span>
+            </footer>
+        </section>
+    </main>
+</body>
+</html>
