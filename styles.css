@@ -252,8 +252,28 @@ body.theme-dark .canvas-wrapper {
     }
 }
 
-/* The UI pieces are visible by default. Re-hide per user request. */
-#angle-readout,
-#tool-link {
-    display: none !important;
+/* Visually remove card/box areas but keep the values/text in the DOM
+   Keeps content accessible while removing colored backgrounds, borders,
+   rounded corners and extra padding so only the values remain visible. */
+.canvas-wrapper,
+.details,
+.visual-footer,
+.controls {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+}
+
+/* Remove top border used by .details while preserving the contained text */
+.details {
+    border-top: none !important;
+}
+
+/* Keep links styled as text but remove link box spacing */
+.visual-footer a {
+    padding: 0 !important;
+    margin: 0 !important;
+    display: inline-block;
 }

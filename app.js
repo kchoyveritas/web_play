@@ -63,7 +63,7 @@
         toggleTheme: document.getElementById("toggle-theme"),
         toggleEquation: document.getElementById("toggle-equation"),
         exportCsv: document.getElementById("export-csv"),
-        angleReadout: document.getElementById("angle-readout"),
+    // angleReadout removed from DOM; keep reference omitted to avoid errors
         messageLine: document.getElementById("message-line"),
         equationText: document.getElementById("equation-text"),
         equationValues: document.getElementById("equation-values"),
@@ -479,6 +479,7 @@
     ctx.font = "14px Helvetica, Arial, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
+    // Canvas title removed per user request.
 
         const x0 = offsetX + (drawWidth - slotWidthPx) / 2;
         const y0 = offsetY + (drawHeight - slotHeightPx) / 2;
@@ -591,16 +592,16 @@
 
     function updateAngleFooter(thetaTrue, wireTooTall) {
         if (wireTooTall) {
-            els.angleReadout.textContent = "Angle: --°";
+            if (els.angleReadout) els.angleReadout.textContent = "Angle: --°";
             els.equationText.textContent = "";
             els.equationValues.textContent = "";
             return;
         }
         if (thetaTrue == null) {
-            els.angleReadout.textContent = "Angle: No torque produced!";
+            if (els.angleReadout) els.angleReadout.textContent = "Angle: No torque produced!";
         } else {
             const displayDeg = state.displayTheta * 180 / Math.PI;
-            els.angleReadout.textContent = `Angle: ${displayDeg.toFixed(2)}°`;
+            if (els.angleReadout) els.angleReadout.textContent = `Angle: ${displayDeg.toFixed(2)}°`;
         }
         if (state.showEquation) {
             if (thetaTrue == null) {
