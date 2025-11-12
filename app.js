@@ -3,7 +3,10 @@
     const SETTINGS_KEY = "playCalcSettings_v1010";
     const INCH_TO_PX = 96;
     const SLOT_RANGE = { min: 0.018, max: 0.022 };
-    const WIRE_RANGE = { min: 0.010, max: 0.028 };
+    // Separate ranges for wire height (H) and wire width (W).
+    // H maximum set to 0.022 as requested; W keeps the original max 0.028.
+    const WIRE_HEIGHT_RANGE = { min: 0.010, max: 0.022 };
+    const WIRE_WIDTH_RANGE = { min: 0.010, max: 0.028 };
     const CANVAS_ASPECT = 650 / 440;
     const SPIN_SPEED_RAD_PER_MS = (45 * Math.PI / 180) / 1000;
     const THEMES = {
@@ -94,10 +97,10 @@
                 state.slotSizeIn = clamp(data.slotSizeIn, SLOT_RANGE.min, SLOT_RANGE.max);
             }
             if (typeof data.wireHeightIn === "number") {
-                state.wireHeightIn = clamp(data.wireHeightIn, WIRE_RANGE.min, WIRE_RANGE.max);
+                state.wireHeightIn = clamp(data.wireHeightIn, WIRE_HEIGHT_RANGE.min, WIRE_HEIGHT_RANGE.max);
             }
             if (typeof data.wireWidthIn === "number") {
-                state.wireWidthIn = clamp(data.wireWidthIn, WIRE_RANGE.min, WIRE_RANGE.max);
+                state.wireWidthIn = clamp(data.wireWidthIn, WIRE_WIDTH_RANGE.min, WIRE_WIDTH_RANGE.max);
             }
             if (typeof data.showEquation === "boolean") {
                 state.showEquation = data.showEquation;
@@ -351,8 +354,8 @@
     }
 
     function setWireSize(newHeight, newWidth) {
-        const h = clamp(round4(newHeight), WIRE_RANGE.min, WIRE_RANGE.max);
-        const w = clamp(round4(newWidth), WIRE_RANGE.min, WIRE_RANGE.max);
+    const h = clamp(round4(newHeight), WIRE_HEIGHT_RANGE.min, WIRE_HEIGHT_RANGE.max);
+    const w = clamp(round4(newWidth), WIRE_WIDTH_RANGE.min, WIRE_WIDTH_RANGE.max);
         if (h > state.slotSizeIn + 1e-9) {
             setMessage("Wire height reverted: exceeds slot size.");
             syncWireControls();
