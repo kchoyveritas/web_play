@@ -252,7 +252,7 @@ body.theme-dark .canvas-wrapper {
     }
 }
 
-/* Hide UI pieces per user request: angle readout and external tool link */
+/* The UI pieces are visible by default. Re-hide per user request. */
 #angle-readout,
 #tool-link {
     display: none !important;
