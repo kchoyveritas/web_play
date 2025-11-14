@@ -153,6 +153,17 @@ input[type="range"] {
 .control-row label {
     min-width: 2.25rem;
     font-weight: 500;
+    flex-shrink: 0;
+}
+
+.control-row input[type="number"] {
+    flex: 0 0 auto;
+    width: 6rem;
+}
+
+.control-row input[type="range"] {
+    flex: 1;
+    min-width: 0;
 }
 
 .details {
@@ -249,6 +260,18 @@ body.theme-dark .canvas-wrapper {
     .details {
         flex: 1 1 100%;
         margin-top: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .control-row input[type="number"] {
+        width: 4.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .control-row label {
+        min-width: 1.5rem;
+        font-size: 0.9rem;
     }
 }
 
