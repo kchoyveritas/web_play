@@ -47,6 +47,13 @@ body.theme-dark .app-header {
     gap: 0.5rem;
 }
 
+/* Hide header action buttons but keep them in DOM so JS still works */
+#toggle-theme,
+#toggle-equation,
+#export-csv {
+    display: none !important;
+}
+
 button {
     border: 1px solid rgba(0, 0, 0, 0.2);
     background: rgba(255, 255, 255, 0.6);
@@ -239,6 +246,21 @@ body.theme-dark .canvas-wrapper {
 .equation-text,
 .equation-values {
     min-height: 1.2rem;
+}
+
+/* Hide only the literal 'Preset' text; keep dropdowns visible */
+.preset-text {
+    display: none !important;
+}
+
+/* Hide the "Custom" option in the slot preset dropdown only (keeps option present for JS but not visible) */
+#slot-preset option[value="Custom"] {
+    display: none !important;
+}
+
+/* Hide the "Custom" option in the wire preset dropdown only (keeps option present for JS but not visible) */
+#wire-preset option[value="Custom"] {
+    display: none !important;
 }
 
 @media (max-width: 980px) {

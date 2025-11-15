@@ -23,7 +23,7 @@
                 <div class="group-header">
                     <h2 id="slot-heading">Slot</h2>
                     <label class="preset-label">
-                        Preset
+                        <span class="preset-text">Preset</span>
                         <select id="slot-preset"></select>
                     </label>
                 </div>
@@ -38,7 +38,7 @@
                 <div class="group-header">
                     <h2 id="wire-heading">Wire</h2>
                     <label class="preset-label">
-                        Preset
+                        <span class="preset-text">Preset</span>
                         <select id="wire-preset"></select>
                     </label>
                 </div>
@@ -51,6 +51,14 @@
                     <label for="wire-w-slider">W (in), W:</label>
                     <input id="wire-w-slider" type="range" min="0.010" max="0.028" step="0.0001">
                     <input id="wire-w-input" type="number" step="0.0001" min="0.010" max="0.028">
+                </div>
+                <div class="control-row">
+                    <label for="show-equation-checkbox">Show Equation</label>
+                    <input id="show-equation-checkbox" type="checkbox">
+                </div>
+                <div class="equation-area">
+                    <span class="equation-text" id="equation-text"></span>
+                    <span class="equation-values" id="equation-values"></span>
                 </div>
             </section>
 
@@ -65,9 +73,7 @@
                 <canvas id="slot-canvas"></canvas>
             </div>
             <footer class="visual-footer">
-                <!-- tool-link removed per user request -->
-                <span class="equation-text" id="equation-text"></span>
-                <span class="equation-values" id="equation-values"></span>
+                <!-- visual footer (kept empty) -->
             </footer>
         </section>
     </main>

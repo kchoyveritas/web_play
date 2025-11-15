@@ -63,6 +63,7 @@
         wireWSlider: document.getElementById("wire-w-slider"),
         wireWInput: document.getElementById("wire-w-input"),
         wirePreset: document.getElementById("wire-preset"),
+        showEquationCheckbox: document.getElementById("show-equation-checkbox"),
         toggleTheme: document.getElementById("toggle-theme"),
         toggleEquation: document.getElementById("toggle-equation"),
         exportCsv: document.getElementById("export-csv"),
@@ -155,6 +156,13 @@
         els.toggleEquation.textContent = state.showEquation ? "Hide Equation" : "Show Equation";
     }
 
+    function syncEquationControl() {
+        if (els.showEquationCheckbox) {
+            els.showEquationCheckbox.checked = !!state.showEquation;
+        }
+        updateEquationToggleLabel();
+    }
+
     function populateSelect(selectEl, values, selected) {
         selectEl.innerHTML = "";
         values.forEach((value) => {
@@ -173,11 +181,23 @@
         return value.toFixed(3);
     }
 
+    function matchSlotPreset(s) {
+        const v = round4(s);
+        if (Math.abs(v - 0.018) < 1e-6) return "0.018";
+        if (Math.abs(v - 0.022) < 1e-6) return "0.022";
+        return "custom";
+    }
+
     function syncSlotControls() {
         els.slotSlider.value = round4(state.slotSizeIn).toString();
         els.slotInput.value = round4(state.slotSizeIn).toFixed(4);
-        const presetValue = formatSlotPresetValue(state.slotSizeIn);
-        populateSelect(els.slotPreset, getSlotPresetOptions(), presetValue);
+        const presetLabel = matchSlotPreset(state.slotSizeIn);
+        const options = getSlotPresetOptions();
+        if (presetLabel === "custom") {
+            populateSelect(els.slotPreset, ["Custom", ...options], "Custom");
+        } else {
+            populateSelect(els.slotPreset, options, presetLabel);
+        }
     }
 
     function syncWireControls() {
@@ -421,6 +441,7 @@
         updateEquationToggleLabel();
         draw();
         queueSave();
+        if (els.showEquationCheckbox) els.showEquationCheckbox.checked = !!state.showEquation;
     }
 
     function exportCsv() {
@@ -643,6 +664,15 @@
         els.slotInput.addEventListener("change", handleSlotInput);
         els.slotPreset.addEventListener("change", handleSlotPreset);
 
+        if (els.showEquationCheckbox) {
+            els.showEquationCheckbox.addEventListener("change", (e) => {
+                state.showEquation = !!e.target.checked;
+                updateEquationToggleLabel();
+                draw();
+                queueSave();
+            });
+        }
+
         els.wireHSlider.addEventListener("input", handleWireHeightSlider);
         els.wireHInput.addEventListener("change", handleWireHeightInput);
         els.wireWSlider.addEventListener("input", handleWireWidthSlider);
@@ -667,6 +697,7 @@
         loadSettings();
         applyTheme();
         updateEquationToggleLabel();
+        syncEquationControl();
         syncSlotControls();
         syncWireControls();
         attachListeners();
