@@ -248,6 +248,30 @@ body.theme-dark .canvas-wrapper {
     min-height: 1.2rem;
 }
 
+/* Add vertical spacing between the equation and the S/H/W values
+   without showing a visible divider line. */
+.equation-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Separate the equation text from the S/H/W values with a thin line. */
+.equation-area {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.equation-text {
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.theme-dark .equation-text {
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
 /* Hide only the literal 'Preset' text; keep dropdowns visible */
 .preset-text {
     display: none !important;
