@@ -1,6 +1,6 @@
 :root {
     color-scheme: light dark;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: "Segoe UI", "Arial", system-ui, sans-serif;
 }
 
 body {
@@ -262,6 +262,41 @@ body.theme-dark .canvas-wrapper {
     flex-direction: column;
     gap: 0.35rem;
 }
+
+/* Equation container uses Segoe UI, but KaTeX internals keep their own math fonts
+   to preserve correct glyph metrics and avoid overlapping fractions/sqrt lines. */
+#equation-text {
+    font-family: "Segoe UI", "Arial", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1;
+}
+
+/* Let KaTeX use its math fonts (prevent forcing Segoe on .katex internals).
+   Keep the rendered math sized to the container (`1em`) and ensure block layout. */
+/* Let KaTeX control its own font-family so math glyphs and metrics render
+   correctly. Keep size tied to the container. */
+#equation-text .katex {
+    font-size: 1em !important;
+    line-height: 1 !important;
+    display: inline-block;
+}
+
+/* Slightly scale KaTeX fraction and root elements so stacked
+   numerators/denominators and the radical sign are more readable
+   without interfering with KaTeX's internal font metrics. */
+#equation-text .katex .mfrac,
+#equation-text .katex .frac {
+    display: inline-block;
+    transform-origin: center center;
+    transform: scale(1.08); /* subtle scaling (~8%) */
+}
+
+#equation-text .katex .surd,
+#equation-text .katex .sqrt {
+    display: inline-block;
+    transform: scale(1.03);
+}
+
 
 .equation-text {
     padding-bottom: 0.35rem;

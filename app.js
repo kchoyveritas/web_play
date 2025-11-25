@@ -87,6 +87,28 @@
         return Number.isFinite(num) ? num : fallback;
     }
 
+    // Render a LaTeX string into the equation display using KaTeX, with a text fallback.
+    function renderEquation(latex) {
+        if (!els.equationText) return;
+        if (window.katex && typeof katex.renderToString === 'function') {
+            try {
+                els.equationText.innerHTML = katex.renderToString(latex, { throwOnError: false, displayMode: false });
+                return;
+            } catch (err) {
+                // fall through to text fallback
+            }
+        }
+        // Fallback: strip some LaTeX commands for a readable text fallback
+        const plain = latex
+            .replace(/\\mathrm\{([^}]+)\}/g, '$1')
+            .replace(/\\left|\\right/g, '')
+            .replace(/\\,/g, ' ')
+            .replace(/\\sqrt\{([^}]+)\}/g, 'sqrt($1)')
+            .replace(/\^\{?([0-9\-]+)\}?/g, '^$1');
+        els.equationText.textContent = plain;
+    }
+    
+
     function loadSettings() {
         try {
             const raw = window.localStorage.getItem(SETTINGS_KEY);
@@ -499,8 +521,8 @@
         const wireHeightPx = state.wireHeightIn * INCH_TO_PX * baseScaleH;
         const wireWidthPx = state.wireWidthIn * INCH_TO_PX * baseScaleW;
 
-    ctx.fillStyle = theme.text;
-    ctx.font = "14px Helvetica, Arial, sans-serif";
+            ctx.fillStyle = theme.text;
+            ctx.font = "14px 'Segoe UI', Arial, sans-serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "top";
     // Canvas title removed per user request.
@@ -628,10 +650,14 @@
             if (els.angleReadout) els.angleReadout.textContent = `Angle: ${displayDeg.toFixed(2)}°`;
         }
         if (state.showEquation) {
+            // LaTeX expression for the contact angle formula
+            const latexExpr = "\\sin^{-1}\\left(\\frac{W S - H \\sqrt{H^{2} + W^{2} - S^{2}}}{H^{2} + W^{2}}\\right)";
             if (thetaTrue == null) {
-                els.equationText.textContent = "theta=sin⁻¹((WS-H√(H²+W²-S²))/(H²+W²))";
+                renderEquation("\\mathrm{rad} = " + latexExpr);
             } else {
-                els.equationText.textContent = `${state.displayTheta.toFixed(4)} rad=sin⁻¹((WS-H√(H²+W²-S²))/(H²+W²))`;
+                // display numeric rad value on the left when available
+                const left = `${state.displayTheta.toFixed(4)}\\,\\mathrm{rad} = `;
+                renderEquation(left + latexExpr);
             }
             els.equationValues.textContent = `S: ${round4(state.slotSizeIn).toFixed(4)} in   H: ${round4(state.wireHeightIn).toFixed(4)} in   W: ${round4(state.wireWidthIn).toFixed(4)} in`;
         } else {
