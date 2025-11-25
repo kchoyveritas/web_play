@@ -629,9 +629,9 @@
         }
         if (state.showEquation) {
             if (thetaTrue == null) {
-                els.equationText.textContent = "theta = asin((W*S - H*sqrt(H^2 + W^2 - S^2)) / (H^2 + W^2))";
+                els.equationText.textContent = "theta=sin⁻¹((WS-H√(H²+W²-S²))/(H²+W²))";
             } else {
-                els.equationText.textContent = `${state.displayTheta.toFixed(4)} rad = asin((W*S - H*sqrt(H^2 + W^2 - S^2)) / (H^2 + W^2))`;
+                els.equationText.textContent = `${state.displayTheta.toFixed(4)} rad=sin⁻¹((WS-H√(H²+W²-S²))/(H²+W²))`;
             }
             els.equationValues.textContent = `S: ${round4(state.slotSizeIn).toFixed(4)} in   H: ${round4(state.wireHeightIn).toFixed(4)} in   W: ${round4(state.wireWidthIn).toFixed(4)} in`;
         } else {
